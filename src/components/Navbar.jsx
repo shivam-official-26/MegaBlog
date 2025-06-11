@@ -36,7 +36,7 @@ function Navbar() {
             <div
               className="w-[95px] h-[40px] flex justify-center items-center rounded-2xl text-xl 
             border border-transparent 
-            hover:border-white hover:border-2 
+            hover:border-white hover:border-2
             transition-all duration-100 ease-in-out"
             >
               <Link

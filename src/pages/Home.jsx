@@ -9,6 +9,7 @@ function Home() {
   useEffect(() => {
     appwriteService.getPosts().then((posts) => {
       if (posts) {
+        posts.documents.reverse()
         setposts(posts.documents);
       }
     });

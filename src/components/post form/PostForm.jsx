@@ -36,6 +36,7 @@ export default function PostForm({ post }) {
   }, []);
 
   const submit = async (data) => {
+    console.log("Form data:", data);
     if (post) {
       const file = data.image[0]
         ? await appwriteService.uploadFile(data.image[0])

@@ -23,6 +23,7 @@ const LandingPage = () => {
   useEffect(() => {
     appwriteService.getPosts().then((posts) => {
       if (posts) {
+        posts.documents.reverse().splice(6); // Get the latest 6 posts
         setPosts(posts.documents);
       }
     });
