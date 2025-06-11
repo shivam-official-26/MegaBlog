@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import heroIMG from "../assets/heroIMG.svg";
 import logo2 from "../assets/logo2.svg";
 import BlogCard from "../components/BlogCard";
-import icon from "../assets/icon.svg";
+import icon from "../assets/blogcard/Icon.svg";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import appwriteService from "../appwrite/config";
