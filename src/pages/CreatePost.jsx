@@ -1,11 +1,12 @@
-import React from "react";
+import PostForm from "../components/post form/PostForm";
 
-const CreatePost = () => {
+function CreatePost() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-4xl font-bold">Create Post Page</h1>
+    <div className="min-h-screen bg-dark text-white py-10 px-16">
+      <h2 className="text-3xl font-semibold mb-6 ml-2">Create New Blog Post</h2>
+      <PostForm />
     </div>
   );
-};
+}
 
 export default CreatePost;
