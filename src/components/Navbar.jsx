@@ -4,116 +4,124 @@ import { useDispatch, useSelector } from "react-redux";
 import { authService } from "../appwrite/authService";
 import { logout } from "../features/auth/authSlice";
 import avatar from "../assets/blogcard/avatar.svg";
+import { Menu } from "lucide-react";
+import { useState } from "react";
 
 function Navbar() {
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const [onMobile, setOnMobile] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.status); // Get the login status from Redux state
-  // console.log(isLoggedIn);
-  const user = useSelector((state) => state.auth.user); // Get the user data from Redux state
-  // console.log(user);
-
+  const isLoggedIn = useSelector((state) => state.auth.status);
   const handleLogout = () => {
-    authService.logout(); // Call the logout function from authService
-    dispatch(logout()); // Dispatch the logout action to update the Redux state
-    // window.location.reload(); // Reload the page to reflect the changes
-    navigate("/"); // Redirect to the homepage after logout
+    authService.logout();
+    dispatch(logout());
+    navigate("/");
   };
 
+  const NavLinks = () => (
+    <>
+      {isLoggedIn && (
+        <Link
+          to="/home"
+          className="w-full md:w-auto px-4 py-2 flex justify-center items-center rounded-2xl text-xl hover:text-blue-400 transition-colors duration-200 hover:border-white border-transparent hover:border-2"
+          onClick={() => {
+            setOnMobile(false);
+          }}
+        >
+          Home
+        </Link>
+      )}
+
+      <Link
+        to="/create-post"
+        className="w-full md:w-auto px-4 py-2 flex justify-center items-center rounded-2xl text-xl hover:text-blue-400 transition-colors duration-200 hover:border-white border-transparent hover:border-2"
+        onClick={() => {
+          setOnMobile(false);
+        }}
+      >
+        Create Post
+      </Link>
+
+      {isLoggedIn ? (
+        <Link
+          to="/"
+          onClick={handleLogout}
+          className="w-full md:w-auto px-4 py-2 flex justify-center items-center rounded-2xl text-xl hover:text-blue-400 transition-colors duration-200 hover:border-white border-transparent hover:border-2"
+        >
+          Logout
+        </Link>
+      ) : (
+        <Link
+          to="/login"
+          className="w-full md:w-auto px-4 py-2 flex justify-center items-center rounded-2xl text-xl hover:text-blue-400 transition-colors duration-200 hover:border-white border-transparent hover:border-2"
+          onClick={() => {
+            setOnMobile(false);
+          }}
+        >
+          Login
+        </Link>
+      )}
+
+      {isLoggedIn ? (
+        <Link
+          to="/profile"
+          className="w-full md:w-auto flex justify-center items-center mt-2 md:mt-0"
+          onClick={() => {
+            setOnMobile(false);
+          }}
+        >
+          <img src={avatar} alt="User" className="rounded-full h-9" />
+        </Link>
+      ) : (
+        <Link
+          to="/signup"
+          className="w-full md:w-auto px-4 py-2 flex justify-center items-center rounded-2xl text-xl hover:text-blue-400 transition-colors duration-200 hover:border-white border-transparent hover:border-2"
+          onClick={() => {
+            setOnMobile(false);
+          }}
+        >
+          Signup
+        </Link>
+      )}
+    </>
+  );
+
   return (
-    <nav className="bg-dark text-white shadow-md h-[112px]">
+    <nav className="bg-dark text-white shadow-md w-full">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="text-2xl font-bold text-blue-400">
           <div className="flex items-center">
-            <img src={logo} alt="MegaBlog Logo" className="h-16 w-auto" />
+            <img
+              src={logo}
+              alt="BlogSpot Logo"
+              className="md:h-16 h-12 w-auto"
+            />
           </div>
         </Link>
 
-        {/* Nav Links */}
-        <div className="flex justify-center items-center">
-          {isLoggedIn && (
-            <div
-              className="w-[95px] h-[40px] flex justify-center items-center rounded-2xl text-xl 
-            border border-transparent 
-            hover:border-white hover:border-2
-            transition-all duration-100 ease-in-out"
-            >
-              <Link
-                to="/home"
-                className="hover:text-blue-400 transition-colors duration-200"
-              >
-                Home
-              </Link>
-            </div>
-          )}
+        {/* Desktop Nav */}
+        <div className="hidden md:flex gap-4 items-center">
+          <NavLinks />
+        </div>
 
-          <div
-            className="w-[140px] h-[40px] flex justify-center items-center rounded-2xl text-xl 
-                border border-transparent 
-                hover:border-white hover:border-2 
-                transition-all duration-100 ease-in-out"
+        {/* Mobile Menu Icon */}
+        <div className="md:hidden flex items-center">
+          <button
+            onClick={() => setOnMobile(!onMobile)}
+            className="cursor-pointer"
           >
-            <Link
-              to="/create-post"
-              className="hover:text-blue-400 transition-colors duration-200"
-            >
-              Create Post
-            </Link>
-          </div>
-          {isLoggedIn ? (
-            <div
-              className="w-[95px] h-[40px] flex justify-center items-center rounded-2xl text-xl 
-           border border-transparent 
-           hover:border-white hover:border-2 
-           transition-all duration-100 ease-in-out"
-            >
-              <Link
-                to="/"
-                className="hover:text-blue-400 transition-colors duration-200"
-                onClick={handleLogout}
-              >
-                Logout
-              </Link>
-            </div>
-          ) : (
-            <div
-              className="w-[95px] h-[40px] flex justify-center items-center rounded-2xl text-xl 
-                border border-transparent 
-                hover:border-white hover:border-2 
-                transition-all duration-100 ease-in-out"
-            >
-              <Link
-                to="/login"
-                className="hover:text-blue-400 transition-colors duration-300 ease-in-out"
-              >
-                Login
-              </Link>
-            </div>
-          )}
-          {isLoggedIn ? (
-            <div className="w-[95px] h-[40px] flex justify-center items-center ">
-              <Link to="/profile" className="">
-                <img src={avatar} alt="" className="rounded-full h-9" />
-              </Link>
-            </div>
-          ) : (
-            <div
-              className="w-[95px] h-[40px] flex justify-center items-center rounded-2xl text-xl 
-            border border-transparent 
-            hover:border-white hover:border-2 
-            transition-all duration-100 ease-in-out"
-            >
-              <Link
-                to="/signup"
-                className="hover:text-blue-400 transition-colors duration-200"
-              >
-                Signup
-              </Link>
-            </div>
-          )}
+            <Menu color="white" />
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu Items */}
+      {onMobile && (
+        <div className="md:hidden bg-dark px-4 pb-4 flex flex-col gap-3 items-center border-t border-gray-700">
+          <NavLinks />
+        </div>
+      )}
     </nav>
   );
 }

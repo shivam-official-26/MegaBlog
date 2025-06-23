@@ -1,4 +1,3 @@
-import appwriteService from "../appwrite/config";
 import { Link } from "react-router-dom";
 import img1 from "../assets/blogcard/img1.png";
 import avatar from "../assets/blogcard/avatar.svg";
@@ -7,8 +6,6 @@ import icon1 from "../assets/blogcard/icon1.svg";
 import heart from "../assets/blogcard/heart.svg";
 import comment from "../assets/blogcard/comment.svg";
 import parse from "html-react-parser";
-import { authService } from "../appwrite/authService";
-import { useEffect, useState } from "react";
 
 const BlogCard = ({
   $id,
@@ -31,7 +28,7 @@ const BlogCard = ({
               src={
                 // featuredImage
                 //   ? appwriteService.getFilePreview(featuredImage)
-                //   : 
+                //   :
                 img1
               }
               alt={title}
